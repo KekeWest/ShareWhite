@@ -1,10 +1,10 @@
 /// <reference path='./typings/tsd.d.ts' />
 
 
-require(['jquery', 'backbone', 'templates', 'collection/TaskList', 'view/TaskListView'], 
-        ($, Backbone, JST, TaskList, TaskListView) => {
+require(['jquery', 'backbone', 'templates', 'collection/WBObjectCollection', 'view/WhiteBoardView'], 
+        ($, Backbone, JST, WBObjectCollection, WhiteBoardView) => {
           $(() => {
-            var mainView = new TaskListView({ collection: new TaskList() });
+            var mainView = new WhiteBoardView({ collection: new WBObjectCollection() });
             mainView.render();
           });
 });
