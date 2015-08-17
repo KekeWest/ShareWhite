@@ -8,8 +8,8 @@ class WBObjectModel extends Backbone.Model {
       text: "",
       posLeft: 0,
       posTop: 0,
-      width: 0,
-      height: 0
+      width: 1,
+      height: 1
     }
   }
 

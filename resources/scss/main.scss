@@ -14,17 +14,24 @@ html,body {
     height: 100%;
     position: relative;
 
+    .ruler-object,
     .wb-object {
 
-      input {
-        &.wb-text {
-          border-width: 0px;
-          border-style: None;
-          overflow: visible;
-          outline: none;
-          position: absolute;
-          background-color: transparent;
-        }
+      #ruler {
+        visibility: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .wb-text {
+        border-width: 0px;
+        border-style: None;
+        overflow: visible;
+        outline: none;
+        position: absolute;
+        background-color: transparent;
+        font-size: 1.1rem;
+        font-family: "ＭＳＰゴシック",sans-serif;
       }
     }
   }

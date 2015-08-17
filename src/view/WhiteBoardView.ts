@@ -16,10 +16,9 @@ class WhiteBoardView extends Backbone.View<WBObjectModel> {
 
   private _addObject(event:any) {
     if (event.target.id != "white-board") return;
-    var offset:any = $(event.target).offset(),
-        offsetX:number = event.pageX - offset.left,
-        offsetY:number = event.pageY - offset.top;
-    console.log(event);
+    var offset:any = $(event.target).offset();
+    var offsetX:number = event.pageX - offset.left;
+    var offsetY:number = event.pageY - offset.top;
     var wbObj:WBObjectModel = new WBObjectModel({posLeft: offsetX, posTop: offsetY});
     this.collection.add(wbObj);
   }
@@ -36,7 +35,7 @@ class WhiteBoardView extends Backbone.View<WBObjectModel> {
 
   render(): WhiteBoardView {
     var whiteBoardEl:JQuery = $('#white-board');
-    whiteBoardEl.empty();
+    // whiteBoardEl.empty();
 
     this.collection.each(wbObj => {
       var view = new WBObjectView({ model: wbObj });
