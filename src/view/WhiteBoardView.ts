@@ -2,16 +2,18 @@ import Backbone = require('backbone');
 import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectView = require('../view/WBObjectView');
 
-class WhiteBoardView extends Backbone.View<WBObjectModel> {
-  
+class WhiteBoardView extends Backbone.View<Backbone.Model> {
+ 
+  template: (data:any) => string;
+
   constructor(options?) {
+    this.setElement($('#wb-container'), true);
+    this.template = JST['whiteboard'];
     this.events = <any>{
       'click #white-board': '_addObject'
     };
     super(options);
-    this.setElement($('#wb-container'), true);
     this.listenTo(this.collection, 'add', this.addObject);
-    // this.listenTo(this.collection, 'remove', this.removeObject);
   }
 
   private _addObject(event:any) {
@@ -30,13 +32,10 @@ class WhiteBoardView extends Backbone.View<WBObjectModel> {
     $('#white-board').find(':last').focus();
   }
 
-  // removeObject(wbObj:WBObjectModel) {
-  // }
-
   render(): WhiteBoardView {
+    var html = this.template({});
+    this.$el.html(html);
     var whiteBoardEl:JQuery = $('#white-board');
-    // whiteBoardEl.empty();
-
     this.collection.each(wbObj => {
       var view = new WBObjectView({ model: wbObj });
       view.render();

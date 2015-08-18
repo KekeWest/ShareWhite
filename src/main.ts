@@ -1,10 +1,20 @@
 /// <reference path='./typings/tsd.d.ts' />
 
+import Backbone = require('backbone');
+import WBObjectCollection = require('collection/WBObjectCollection');
+import WhiteBoardView = require('view/WhiteBoardView');
+import UtilModel = require('model/UtilModel');
+import UtilView = require('view/UtilView');
 
-require(['jquery', 'backbone', 'templates', 'collection/WBObjectCollection', 'view/WhiteBoardView'], 
-        ($, Backbone, JST, WBObjectCollection, WhiteBoardView) => {
-          $(() => {
-            var mainView = new WhiteBoardView({ collection: new WBObjectCollection() });
-            mainView.render();
-          });
-});
+export function run() {
+  var utilModel: UtilModel = new UtilModel();
+  var wbObjectCollection: WBObjectCollection = new WBObjectCollection();
+  var utilView: UtilView = new UtilView({model: utilModel});
+  var wbView: WhiteBoardView = new WhiteBoardView({
+    collection: wbObjectCollection,
+    model: utilModel
+  });
+  utilView.render();
+  wbView.render();
+}
+

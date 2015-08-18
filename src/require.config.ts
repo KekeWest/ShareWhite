@@ -16,3 +16,7 @@ require.config({
 
 });
 
+
+require(['main', 'templates'], (Main, JST) => {
+  Main.run();
+});
