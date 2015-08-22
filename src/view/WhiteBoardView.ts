@@ -4,7 +4,7 @@ import WBObjectView = require('../view/WBObjectView');
 
 class WhiteBoardView extends Backbone.View<Backbone.Model> {
 
-  template: (data: any) => string;
+  private template: (data: any) => string;
 
   constructor(options?: any) {
     this.setElement($('#wb-container'), true);
@@ -16,12 +16,12 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     this.listenTo(this.collection, 'add', this.addObject);
   }
 
-  addObject(wbObj: WBObjectModel) {
+  public addObject(wbObj: WBObjectModel): void {
     var view: WBObjectView = new WBObjectView({ model: wbObj });
     view.render();
   }
 
-  render(): WhiteBoardView {
+  public render(): WhiteBoardView {
     var html = this.template({});
     this.$el.html(html);
     this.collection.each((wbObj: WBObjectModel) => {
@@ -31,7 +31,7 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     return this;
   }
 
-  private _addObject(event: any) {
+  private _addObject(event: any): void {
     if (event.target.id !== "white-board") {
       return;
     }

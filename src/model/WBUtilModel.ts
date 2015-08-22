@@ -3,7 +3,7 @@ import Backbone = require('backbone');
 
 class WBUtilModel extends Backbone.Model {
 
-  defaults() {
+  public defaults(): any {
     return {
       objectType: 'text',
       objectColor: 'color-black',
@@ -11,7 +11,7 @@ class WBUtilModel extends Backbone.Model {
     };
   }
 
-  destroy() {
+  public destroy(): void {
     this.trigger("destroy", this);
   }
 

@@ -3,7 +3,7 @@ import Backbone = require('backbone');
 
 class WBObjectModel extends Backbone.Model {
 
-  defaults() {
+  public defaults(): any {
     return {
       objectType: 'text',
       objectColor: 'color-black',
@@ -17,15 +17,9 @@ class WBObjectModel extends Backbone.Model {
   }
 
 
-  destroy() {
+  public destroy(): void {
     this.trigger("destroy", this);
   }
-
-  // validate(attrs: any) : string {
-  //   if (_.isString(attrs.name) && _.isEmpty(attrs.name)) {
-  //     return "task name is empty.";
-  //   }
-  // }
 
 }
 export = WBObjectModel;

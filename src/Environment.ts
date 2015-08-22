@@ -3,7 +3,7 @@ class Environment {
   static device: string;
   static browser: string;
 
-  static checkEnv() {
+  static checkEnv(): void {
 
     var userAgent: any = navigator.userAgent.toLowerCase();
     var appVersion: any = navigator.appVersion.toLowerCase();

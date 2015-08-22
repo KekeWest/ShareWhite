@@ -18,7 +18,7 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
     this.listenTo(this.model, 'change', this.render);
   }
 
-  render(): WBUtilView {
+  public render(): WBUtilView {
     var data = this.model.toJSON();
     var html = this.template(data);
     this.$el.html(html);
@@ -27,12 +27,12 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
     return this;
   }
 
-  private _updateTextColor(event: any) {
+  private _updateTextColor(event: any): void {
     var color: string = event.target.id.replace(/^wb\-util\-text\-/g, '');
     this.model.set('objectColor', color);
   }
 
-  private _updateTextFontSize(event: any) {
+  private _updateTextFontSize(event: any): void {
     var fontsize: string = event.target.id.replace(/^wb\-util\-text\-/g, '');
     this.model.set('textFontSize', fontsize);
   }

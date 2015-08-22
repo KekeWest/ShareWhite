@@ -24,11 +24,11 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     this.listenTo(this.model, "destroy", this.onDestroy);
   }
 
-  public onDestroy() {
+  public onDestroy(): void {
     this.remove();
   }
 
-  public updateStyle() {
+  public updateStyle(): void {
     this._input.css({
       width: this.model.get('width') + "px"
     });
@@ -46,7 +46,7 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     return this;
   }
 
-  private _updateText(event: any) {
+  private _updateText(event: any): void {
     var text: string = this._input.val();
     var width: number = 1;
     this._ruler.text(text);
@@ -67,7 +67,7 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     }
   }
 
-  private _onDelete() {
+  private _onDelete(): void {
     this.model.destroy();
   }
 

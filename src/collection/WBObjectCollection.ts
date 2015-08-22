@@ -9,11 +9,11 @@ class WBObjectCollection extends Backbone.Collection<WBObjectModel> {
     this.listenTo(this, "reset", this._onReset);
   }
 
-  private _onAdd(wbObj: WBObjectModel) {
+  private _onAdd(wbObj: WBObjectModel): void {
     this.listenTo(wbObj, "destroy", this._onDestroy);
   }
 
-  private _onDestroy(wbObj: WBObjectModel) {
+  private _onDestroy(wbObj: WBObjectModel): void {
     this.remove(wbObj);
   }
 
