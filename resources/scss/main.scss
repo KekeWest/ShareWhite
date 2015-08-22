@@ -1,4 +1,6 @@
 @import "compass";
+@import "colorset";
+
 
 html,body { 
   height:100%;
@@ -6,39 +8,11 @@ html,body {
 }
 
 #util-container {
-  background-color: #f2f2f2;
-  width: 100%;
-  height: 30px;
+  @import "util";
 }
 
 #wb-container {
   width: 100%;
   height: 100%;
-
-  #white-board {
-    width: 100%;
-    height: 100%;
-    position: relative;
-
-    .ruler-object,
-    .wb-object {
-
-      #ruler {
-        visibility: hidden;
-        position: absolute;
-        white-space: nowrap;
-      }
-
-      .wb-text {
-        border-width: 0px;
-        border-style: None;
-        overflow: visible;
-        outline: none;
-        position: absolute;
-        background-color: transparent;
-        font-size: 1.1rem;
-        font-family: "ＭＳＰゴシック",sans-serif;
-      }
-    }
-  }
+  @import "whiteboard";
 }

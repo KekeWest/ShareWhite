@@ -1,0 +1,26 @@
+.wb-text {
+  border-width: 0px;
+  border-style: None;
+  overflow: visible;
+  outline: none;
+  position: absolute;
+  background-color: transparent;
+  font-family: "ＭＳＰゴシック",sans-serif;
+
+  &.font-size-s {
+    font-size: 1.0rem;
+  }
+
+  &.font-size-m {
+    font-size: 1.2rem;
+  }
+
+  &.font-size-l {
+    font-size: 1.4rem;
+  }
+
+  &.color-black {
+    color: $black;
+  }
+}
+
