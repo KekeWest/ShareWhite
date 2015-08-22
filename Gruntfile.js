@@ -8,6 +8,18 @@ module.exports = function(grunt) {
         options: {
           module: 'amd',
           target: 'es5',
+          noImplicitAny: true,
+        }
+      }
+    },
+
+    tslint: {
+      ts: {
+        options: {
+          configuration: grunt.file.readJSON('tslint.json')
+        },
+        files: {
+          src: ['src/**/*.ts', '!src/typings/**/*.ts']
         }
       }
     },
@@ -68,6 +80,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-typescript');
+  grunt.loadNpmTasks('grunt-tslint');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -76,6 +89,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("build", 
     [
+      "tslint:ts",
       "jst:compile", 
       "typescript:compile", 
       "compass:compile"

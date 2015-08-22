@@ -3,10 +3,10 @@ import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectView = require('../view/WBObjectView');
 
 class WhiteBoardView extends Backbone.View<Backbone.Model> {
- 
-  template: (data:any) => string;
 
-  constructor(options?) {
+  template: (data: any) => string;
+
+  constructor(options?: any) {
     this.setElement($('#wb-container'), true);
     this.template = JST['whiteboard'];
     this.events = <any>{
@@ -16,17 +16,8 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     this.listenTo(this.collection, 'add', this.addObject);
   }
 
-  private _addObject(event:any) {
-    if (event.target.id != "white-board") return;
-    var offset:any = $(event.target).offset();
-    var offsetX:number = event.pageX - offset.left;
-    var offsetY:number = event.pageY - offset.top;
-    var wbObj:WBObjectModel = new WBObjectModel(_.extend(this.model.toJSON(), {posLeft: offsetX, posTop: offsetY}));
-    this.collection.add(wbObj);
-  }
-
-  addObject(wbObj:WBObjectModel) {
-    var view:WBObjectView = new WBObjectView({ model: wbObj });
+  addObject(wbObj: WBObjectModel) {
+    var view: WBObjectView = new WBObjectView({ model: wbObj });
     view.render();
   }
 
@@ -40,5 +31,17 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
 
     return this;
   }
+
+  private _addObject(event: any) {
+    if (event.target.id !== "white-board") {
+      return;
+    }
+    var offset: any = $(event.target).offset();
+    var offsetX: number = event.pageX - offset.left;
+    var offsetY: number = event.pageY - offset.top;
+    var wbObj: WBObjectModel = new WBObjectModel(_.extend(this.model.toJSON(), {posLeft: offsetX, posTop: offsetY}));
+    this.collection.add(wbObj);
+  }
+
 }
 export = WhiteBoardView;

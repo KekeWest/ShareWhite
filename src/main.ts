@@ -1,6 +1,5 @@
 /// <reference path='./typings/tsd.d.ts' />
 
-import Backbone = require('backbone');
 import Environment = require('Environment');
 import WBObjectCollection = require('collection/WBObjectCollection');
 import WhiteBoardView = require('view/WhiteBoardView');

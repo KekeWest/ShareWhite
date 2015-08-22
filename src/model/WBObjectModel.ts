@@ -13,7 +13,7 @@ class WBObjectModel extends Backbone.Model {
       height: 1,
       textFontSize: 'fontsize-m',
       text: ""
-    }
+    };
   }
 
 

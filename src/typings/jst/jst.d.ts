@@ -1,3 +1,3 @@
 /// <amd-dependency path="../js/templates.js"/>
-declare var JST;
+declare var JST: any;
 

@@ -8,7 +8,7 @@ class WBUtilModel extends Backbone.Model {
       objectType: 'text',
       objectColor: 'color-black',
       textFontSize: 'fontsize-m'
-    }
+    };
   }
 
   destroy() {
