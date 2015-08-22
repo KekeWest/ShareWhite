@@ -7,20 +7,32 @@
   background-color: transparent;
   font-family: "ＭＳＰゴシック",sans-serif;
 
-  &.font-size-s {
+  &.fontsize-s {
     font-size: 1.0rem;
   }
 
-  &.font-size-m {
+  &.fontsize-m {
     font-size: 1.2rem;
   }
 
-  &.font-size-l {
+  &.fontsize-l {
     font-size: 1.4rem;
   }
 
   &.color-black {
     color: $black;
+  }
+
+  &.color-red {
+    color: $red;
+  }
+
+  &.color-blue {
+    color: $blue;
+  }
+
+  &.color-green {
+    color: $green;
   }
 }
 

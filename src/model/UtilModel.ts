@@ -6,10 +6,8 @@ class UtilModel extends Backbone.Model {
   defaults() {
     return {
       objectType: 'text',
-      objectOption: {
-        fontSizeClass: 'font-size-s'
-      },
-      color: 'color-black'
+      objectColor: 'color-black',
+      textFontSize: 'fontsize-m'
     }
   }
 

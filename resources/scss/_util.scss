@@ -1,33 +1,40 @@
+
 @mixin util-button($image-name, $image-size:25px, $button-size:30px) {
   height: $button-size;
   width: $button-size;
   @include border-radius(3px);
   margin: 4px 8px;
-  background: image-url($image-name) no-repeat;
+  background-image: image-url($image-name);
+  background-repeat: no-repeat;
   background-size: $image-size $image-size;
   background-position: center center;
 
   &:hover {
-    background-color: #c8c8c8;
+    background-color: $util-bg-active-color;
   }
 }
 
+
 #util {
-  background-color: #f2f2f2;
+  background-color: $util-bg-color;
   width: 100%;
   overflow: hidden;
+
+  .util-active {
+    background-color: $util-bg-active-color;
+  }
 
   #wb-util {
     float: right;
     width: 500px;
 
-    #wb-util-color {
+    #wb-util-text-color {
       float: left;
       overflow: hidden;
       margin-right: 30px;
 
       @each $color in "black","red","blue","green" {
-        #wb-color-#{$color} {
+        #wb-util-text-color-#{$color} {
           float: left;
           @include util-button("#{$color}.png");
         }
@@ -35,25 +42,25 @@
 
     }
     
-    #wb-util-fontsize {
+    #wb-util-text-fontsize {
       float: left;
       overflow: hidden;
      
-      #wb-fontsize-s {
+      #wb-util-text-fontsize-s {
         @include util-button("black.png", 15px);
       }
 
-      #wb-fontsize-m {
+      #wb-util-text-fontsize-m {
         @include util-button("black.png", 20px);
       }
 
-      #wb-fontsize-l {
+      #wb-util-text-fontsize-l {
         @include util-button("black.png");
       }
 
-      #wb-fontsize-s,
-      #wb-fontsize-m,
-      #wb-fontsize-l {
+      #wb-util-text-fontsize-s,
+      #wb-util-text-fontsize-m,
+      #wb-util-text-fontsize-l {
         float: left;
       }
     }
