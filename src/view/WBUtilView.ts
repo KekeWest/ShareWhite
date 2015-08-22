@@ -1,7 +1,8 @@
 import Backbone = require('backbone');
+import WBObjectCollection = require('../collection/WBObjectCollection');
 import WBUtilModel = require('../model/WBUtilModel');
 
-class WBUtilView extends Backbone.View<Backbone.Model> {
+class WBUtilView extends Backbone.View<WBUtilModel> {
 
   private template: (data: any) => string;
 
@@ -10,7 +11,8 @@ class WBUtilView extends Backbone.View<Backbone.Model> {
     this.template = JST['util'];
     this.events = <any>{
       'click div[id^="wb-util-text-color-"]': "_updateTextColor",
-      'click div[id^="wb-util-text-fontsize-"]': "_updateTextFontSize"
+      'click div[id^="wb-util-text-fontsize-"]': "_updateTextFontSize",
+      'click #wb-util-clear': "_clearObject"
     };
     super(options);
     this.listenTo(this.model, 'change', this.render);
@@ -33,6 +35,10 @@ class WBUtilView extends Backbone.View<Backbone.Model> {
   private _updateTextFontSize(event: any) {
     var fontsize: string = event.target.id.replace(/^wb\-util\-text\-/g, '');
     this.model.set('textFontSize', fontsize);
+  }
+
+  private _clearObject(): void {
+    this.collection.reset();
   }
 
 }

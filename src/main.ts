@@ -10,7 +10,10 @@ export function run() {
   Environment.checkEnv();
   var wbUtilModel: WBUtilModel = new WBUtilModel();
   var wbObjectCollection: WBObjectCollection = new WBObjectCollection();
-  var wbUtilView: WBUtilView = new WBUtilView({model: wbUtilModel});
+  var wbUtilView: WBUtilView = new WBUtilView({
+    collection: wbObjectCollection,
+    model: wbUtilModel
+  });
   var wbView: WhiteBoardView = new WhiteBoardView({
     collection: wbObjectCollection,
     model: wbUtilModel

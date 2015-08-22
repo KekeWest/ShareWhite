@@ -5,15 +5,22 @@ class WBObjectCollection extends Backbone.Collection<WBObjectModel> {
 
   constructor() {
     super();
-    this.bind("add", this._onAdd, this);
+    this.listenTo(this, "add", this._onAdd);
+    this.listenTo(this, "reset", this._onReset);
   }
 
   private _onAdd(wbObj: WBObjectModel) {
-    wbObj.bind("destroy", this._onDestroy, this);
+    this.listenTo(wbObj, "destroy", this._onDestroy);
   }
 
   private _onDestroy(wbObj: WBObjectModel) {
     this.remove(wbObj);
+  }
+
+  private _onReset(collection: WBObjectCollection, options: any): void {
+    _(options.previousModels).each((model: WBObjectModel) => {
+      model.destroy();
+    });
   }
 
 }

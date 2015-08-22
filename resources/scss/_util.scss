@@ -65,9 +65,9 @@
       }
     }
 
-    #wb-alldelete {
+    #wb-util-clear {
       float: right;
-      @include util-button("alldelete.png");
+      @include util-button("clear.png");
       margin-right: 20px;
     }
   }

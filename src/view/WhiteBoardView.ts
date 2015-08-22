@@ -24,9 +24,8 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
   render(): WhiteBoardView {
     var html = this.template({});
     this.$el.html(html);
-    this.collection.each(wbObj => {
-      var view = new WBObjectView({ model: wbObj });
-      view.render();
+    this.collection.each((wbObj: WBObjectModel) => {
+      this.addObject(wbObj);
     });
 
     return this;
