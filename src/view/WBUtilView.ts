@@ -1,7 +1,7 @@
 import Backbone = require('backbone');
-import UtilModel = require('../model/UtilModel');
+import WBUtilModel = require('../model/WBUtilModel');
 
-class UtilView extends Backbone.View<Backbone.Model> {
+class WBUtilView extends Backbone.View<Backbone.Model> {
 
   template: (data:any) => string;
 
@@ -26,7 +26,7 @@ class UtilView extends Backbone.View<Backbone.Model> {
     this.model.set('textFontSize', fontsize);
   }
 
-  render(): UtilView {
+  render(): WBUtilView {
     var data = this.model.toJSON();
     var html = this.template(data);
     this.$el.html(html);
@@ -36,4 +36,4 @@ class UtilView extends Backbone.View<Backbone.Model> {
   }
 
 }
-export = UtilView;
+export = WBUtilView;

@@ -1,7 +1,7 @@
 import Backbone = require('backbone');
 
 
-class UtilModel extends Backbone.Model {
+class WBUtilModel extends Backbone.Model {
 
   defaults() {
     return {
@@ -16,4 +16,4 @@ class UtilModel extends Backbone.Model {
   }
 
 }
-export = UtilModel;
+export = WBUtilModel;

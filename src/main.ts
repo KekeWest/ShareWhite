@@ -3,18 +3,18 @@
 import Backbone = require('backbone');
 import WBObjectCollection = require('collection/WBObjectCollection');
 import WhiteBoardView = require('view/WhiteBoardView');
-import UtilModel = require('model/UtilModel');
-import UtilView = require('view/UtilView');
+import WBUtilModel = require('model/WBUtilModel');
+import WBUtilView = require('view/WBUtilView');
 
 export function run() {
-  var utilModel: UtilModel = new UtilModel();
+  var wbUtilModel: WBUtilModel = new WBUtilModel();
   var wbObjectCollection: WBObjectCollection = new WBObjectCollection();
-  var utilView: UtilView = new UtilView({model: utilModel});
+  var wbUtilView: WBUtilView = new WBUtilView({model: wbUtilModel});
   var wbView: WhiteBoardView = new WhiteBoardView({
     collection: wbObjectCollection,
-    model: utilModel
+    model: wbUtilModel
   });
-  utilView.render();
+  wbUtilView.render();
   wbView.render();
 }
 
