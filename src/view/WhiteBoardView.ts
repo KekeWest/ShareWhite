@@ -21,25 +21,21 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     var offset:any = $(event.target).offset();
     var offsetX:number = event.pageX - offset.left;
     var offsetY:number = event.pageY - offset.top;
-    var wbObj:WBObjectModel = new WBObjectModel({posLeft: offsetX, posTop: offsetY});
+    var wbObj:WBObjectModel = new WBObjectModel(_.extend(this.model.toJSON(), {posLeft: offsetX, posTop: offsetY}));
     this.collection.add(wbObj);
   }
 
   addObject(wbObj:WBObjectModel) {
     var view:WBObjectView = new WBObjectView({ model: wbObj });
     view.render();
-    $('#white-board').append(view.el);
-    $('#white-board').find(':last').focus();
   }
 
   render(): WhiteBoardView {
     var html = this.template({});
     this.$el.html(html);
-    var whiteBoardEl:JQuery = $('#white-board');
     this.collection.each(wbObj => {
       var view = new WBObjectView({ model: wbObj });
       view.render();
-      whiteBoardEl.append(view.el);
     });
 
     return this;

@@ -4,12 +4,15 @@ import WBObjectModel = require('../model/WBObjectModel');
 
 class WBObjectView extends Backbone.View<WBObjectModel> {
  
-  template: (data:any) => string;
+  private _template: (data:any) => string;
+  private _ruler: JQuery;
+  private _input: JQuery;
+  private _fontSize: number;
 
   constructor(options?) {
     this.tagName = "div";
     this.className = "wb-object";
-    this.template = JST['wbtext'];
+    this._template = JST['wbtext'];
     this.events = <any>{
       "keydown  input[type=text].wb-text": "_updateText",
       "keyup    input[type=text].wb-text": "_updateText",
@@ -22,18 +25,22 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
   }
  
   private _updateText(event:any) {
-    var text:string = this.$el.children().first().val();
+    var text: string = this._input.val();
+    var width: number = 1;
+    this._ruler.text(text);
     switch(event.type) {
       case "keydown":
-        var width:number = this._strWidth(text) + 20;
+        width = this._getStrWidth() + this._fontSize + 1;
         this.model.set({text: text, width: width});
         break;
       case "keyup":
-        var width:number = this._strWidth(text) + 1;
+        width = this._getStrWidth() + 1;
         this.model.set({text: text, width: width});
         break;
       case "focusout":
-        if (_.isEmpty(text)) this._onDelete();
+        if (_.isEmpty(text)) {
+          this._onDelete();
+        }
         break;
     }
   }
@@ -42,26 +49,29 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     this.model.destroy();
   }
 
-  private _strWidth(str:string):number {
-    var e:JQuery = $("#ruler");
-    var width:number = e.text(str).get(0).offsetWidth;
-    return width;
+  private _getStrWidth(): number {
+    return this._ruler.get(0).offsetWidth;
   }
 
-  onDestroy() {
+  public onDestroy() {
     this.remove();
   }
 
-  updateStyle() {
-    this.$el.children().first().css({
+  public updateStyle() {
+    this._input.css({
       width: this.model.get('width') + "px"
     });
   }
 
-  render(): WBObjectView {
+  public render(): WBObjectView {
     var data = this.model.toJSON();
-    var html = this.template(data);
+    var html = this._template(data);
     this.$el.html(html);
+    $('#white-board').append(this.el);
+    this._input = this.$el.children('input');
+    this._ruler = this.$el.children('span');
+    this._fontSize = parseInt(this._input.css('font-size'), 10);
+    this._input.focus();
     return this;
   }
 

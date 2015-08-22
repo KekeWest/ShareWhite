@@ -7,16 +7,22 @@
   background-color: transparent;
   font-family: "ＭＳＰゴシック",sans-serif;
 
+  &.ruler {
+    visibility: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
   &.fontsize-s {
-    font-size: 1.0rem;
+    font-size: 14px;
   }
 
   &.fontsize-m {
-    font-size: 1.2rem;
+    font-size: 20px;
   }
 
   &.fontsize-l {
-    font-size: 1.4rem;
+    font-size: 28px;
   }
 
   &.color-black {

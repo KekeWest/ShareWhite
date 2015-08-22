@@ -3,7 +3,7 @@ import WBUtilModel = require('../model/WBUtilModel');
 
 class WBUtilView extends Backbone.View<Backbone.Model> {
 
-  template: (data:any) => string;
+  private template:(data:any) => string;
 
   constructor(options?) {
     this.setElement($('#util-container'), true);

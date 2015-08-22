@@ -3,14 +3,7 @@
   height: 100%;
   position: relative;
 
-  .ruler-object,
   .wb-object {
-
-    #ruler {
-      visibility: hidden;
-      position: absolute;
-      white-space: nowrap;
-    }
 
     @import "wbtext";
 
