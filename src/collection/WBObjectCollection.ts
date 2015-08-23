@@ -10,7 +10,7 @@ class WBObjectCollection extends Backbone.Collection<WBObjectModel> {
   }
 
   private _onAdd(wbObj: WBObjectModel): void {
-    this.listenTo(wbObj, "destroy", this._onDestroy);
+    this.listenToOnce(wbObj, "destroy", this._onDestroy);
   }
 
   private _onDestroy(wbObj: WBObjectModel): void {
