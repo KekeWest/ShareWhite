@@ -16,10 +16,5 @@ class WBObjectModel extends Backbone.Model {
     };
   }
 
-
-  public destroy(): void {
-    this.trigger("destroy", this);
-  }
-
 }
 export = WBObjectModel;
