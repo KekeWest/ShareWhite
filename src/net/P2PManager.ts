@@ -49,7 +49,6 @@ class P2PManager {
         wbObjectCollection: this._wbObjectCollection
       }
     );
-    console.log(peerModel.id);
     
     this._peerCollection.add(peerModel);
   
@@ -57,7 +56,7 @@ class P2PManager {
 
 
   private static _connectUser(id: string): void {
-    console.log(this._peerCollection.get(id));
+    
     if (this._peerCollection.get(id) || this._myPeerID === id) {
       return;
     }

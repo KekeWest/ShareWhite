@@ -11,11 +11,17 @@ class PeerModel extends Backbone.Model {
     this._wbObjectCollection = options.wbObjectCollection;
   }
 
+
   public defaults(): any {
     return {
       id: null,
       dataConnection: null
     };
+  }
+
+
+  public destroy(): void {
+    this.trigger("destroy", this);
   }
 
 }
