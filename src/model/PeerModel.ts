@@ -10,7 +10,6 @@ class PeerModel extends Backbone.Model {
   constructor(attributes?: any, options?: any) {
     super(attributes, options);
     this._wbObjectCollection = options.wbObjectCollection;
-console.log(this._wbObjectCollection);
     this.listenTo(this._wbObjectCollection, 'sendAdd', this._addObject);
     this.listenTo(this._wbObjectCollection, 'sendChange', this._changeObject);
     this.listenTo(this._wbObjectCollection, 'sendDestroy', this._destroyObject);
@@ -61,7 +60,6 @@ console.log(this._wbObjectCollection);
   }
 
   private _apply(data: any) {
-console.log(data);
     switch (data.type) {
       case 'add':
         var addObj: WBObjectModel = new WBObjectModel(data.object);
@@ -86,7 +84,6 @@ console.log(data);
       case 'reset':
         this._wbObjectCollection.reset();
     }
-console.log(this._wbObjectCollection);
   }
 
 }
