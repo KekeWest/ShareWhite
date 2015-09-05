@@ -41,7 +41,6 @@ console.log(this._wbObjectCollection);
   }
 
   private _changeObject(wbObj: WBObjectModel): void {
-console.log("asd");
     this.get('dataConnection').send({
       type: 'change',
       object: wbObj.toJSON()
@@ -63,7 +62,6 @@ console.log("asd");
 
   private _apply(data: any) {
 console.log(data);
-console.log(this._wbObjectCollection);
     switch (data.type) {
       case 'add':
         var addObj: WBObjectModel = new WBObjectModel(data.object);
@@ -73,7 +71,8 @@ console.log(this._wbObjectCollection);
       case 'change':
         var chObj: WBObjectModel = this._wbObjectCollection.get(data.object.id);
         if (chObj) {
-          chObj.set(data.object);
+          chObj.set(data.object, {silent: true});
+          chObj.trigger('receiveChange', chObj);
         }
         break;
 
@@ -87,6 +86,7 @@ console.log(this._wbObjectCollection);
       case 'reset':
         this._wbObjectCollection.reset();
     }
+console.log(this._wbObjectCollection);
   }
 
 }

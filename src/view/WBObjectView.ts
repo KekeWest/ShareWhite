@@ -22,6 +22,7 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     };
     super(options);
     this.listenTo(this.model, "change", this.updateStyle);
+    this.listenTo(this.model, "receiveChange", this.render);
     this.listenTo(this.model, "destroy", this.onDestroy);
   }
 
@@ -35,15 +36,17 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     });
   }
 
-  public render(): WBObjectView {
+  public render(options?: any): WBObjectView {
     var data = this.model.toJSON();
     var html = this._template(data);
     this.$el.html(html);
-    $('#white-board').append(this.el);
     this._input = this.$el.children('input');
     this._ruler = this.$el.children('span');
+    if (options.renderType === 'add') {
+      $('#white-board').append(this.el);
+      this._input.focus();
+    }
     this._fontSize = parseInt(this._input.css('font-size'), 10);
-    this._input.focus();
     return this;
   }
 
@@ -64,7 +67,6 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
         break;
       case "focusout":
         if (_.isEmpty(text)) {
-          this.model.trigger("sendDestroy", this.model);
           this._onDelete();
         }
         break;
@@ -72,6 +74,7 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
   }
 
   private _onDelete(): void {
+    this.model.trigger('sendDestroy', this.model);
     this.model.destroy();
   }
 

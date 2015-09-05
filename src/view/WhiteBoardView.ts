@@ -19,7 +19,7 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
 
   public addObject(wbObj: WBObjectModel): void {
     var view: WBObjectView = new WBObjectView({ model: wbObj });
-    view.render();
+    view.render({renderType: 'add'});
   }
 
   public render(): WhiteBoardView {
