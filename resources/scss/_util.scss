@@ -18,14 +18,76 @@
 #util {
   background-color: $util-bg-color;
   width: 100%;
-  overflow: hidden;
+  height: 38px;
 
   .util-active {
     background-color: $util-bg-active-color;
   }
 
+  #peer-util {
+    float: left;
+
+    #peer-state {
+      float: left;
+      margin-right: 10px;
+      
+      #user-list {
+        position: relative;
+        float: left;
+        height: 38px;
+        width: 38px;
+        background-image: image-url("users.png");
+        background-repeat: no-repeat;
+        background-size: 25px 25px;
+        background-position: center center;
+
+        ul {
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          top: 100%;
+          left: 0;
+
+          li {
+            cursor: default;
+            background-color: $util-bg-active-color;
+            line-height: 28px;
+            overflow: hidden;
+            height: 0px;
+            @include transition(height 0.1s linear 0s);
+            
+            .user {
+              display: block;
+              background-color: $util-bg-active-color;
+              padding: 0px 10px;
+              // color: white;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $util-bg-active-color;
+
+          ul {
+            z-index: 1;
+            li {
+              overflow: visible;
+              height: 28px;
+            }
+          }
+        }
+
+      }
+    }
+
+    #my-setting {
+      float: left;
+    }
+  }
+
   #wb-util {
     float: right;
+    overflow: hidden;
     width: 500px;
 
     #wb-util-text-color {
