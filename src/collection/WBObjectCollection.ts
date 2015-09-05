@@ -10,10 +10,12 @@ class WBObjectCollection extends Backbone.Collection<WBObjectModel> {
   }
 
   private _onAdd(wbObj: WBObjectModel): void {
+    this.listenTo(wbObj, "change", this._modelChange);
     this.listenToOnce(wbObj, "destroy", this._onDestroy);
   }
 
   private _onDestroy(wbObj: WBObjectModel): void {
+    this.stopListening(wbObj);
     this.remove(wbObj);
   }
 
@@ -21,6 +23,10 @@ class WBObjectCollection extends Backbone.Collection<WBObjectModel> {
     _(options.previousModels).each((model: WBObjectModel) => {
       model.destroy();
     });
+  }
+
+  private _modelChange(wbObj: WBObjectModel): void {
+    this.trigger("change", wbObj);
   }
 
 }
