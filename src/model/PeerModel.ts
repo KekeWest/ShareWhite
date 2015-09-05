@@ -23,6 +23,7 @@ class PeerModel extends Backbone.Model {
   public defaults(): any {
     return {
       id: null,
+      name: null,
       dataConnection: null
     };
   }

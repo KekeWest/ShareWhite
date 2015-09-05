@@ -12,14 +12,17 @@ class P2PManager {
   private static _peerServerAddr: string = "192.168.1.21";
   private static _peerServerPort: number = 9000;
   private static _peerServerPath: string = '/';
+  private static _intervalTime: number = 10000;
   private static _myPeerID: string = null;
-  private static _myName: string = null;
+  private static _myName: string = "";
 
 
-  public static init(wbObjectCollection: WBObjectCollection): void {
+  public static init(peerCollection: PeerCollection, wbObjectCollection: WBObjectCollection): void {
     
     this._wbObjectCollection = wbObjectCollection;
-    this._peerCollection = new PeerCollection();
+    this._peerCollection = peerCollection;
+
+    _(this).bindAll('_connectAllUsers');
     
     this._peer = new Peer({
       host: this._peerServerAddr,
@@ -30,6 +33,7 @@ class P2PManager {
     this._peer.on('open', (id: string) => {
       this._myPeerID = id;
       this._connectAllUsers();
+      setInterval(this._connectAllUsers, this._intervalTime);
     });
     this._peer.on('connection', (conn: PeerJs.DataConnection) => {
       this._setPeer(conn);
@@ -43,6 +47,7 @@ class P2PManager {
     var peerModel: PeerModel = new PeerModel(
       {
         id: conn.peer,
+        name: conn.metadata.name,
         dataConnection: conn
       },
       {
@@ -51,7 +56,6 @@ class P2PManager {
     );
     
     this._peerCollection.add(peerModel);
-  
   }
 
 
@@ -60,11 +64,16 @@ class P2PManager {
     if (this._peerCollection.get(id) || this._myPeerID === id) {
       return;
     }
-
-    var conn: PeerJs.DataConnection = this._peer.connect(id);
-    conn.on('open', () => {
-      this._setPeer(conn);
+    var conn: PeerJs.DataConnection = this._peer.connect(id, {
+      metadata: {
+        name: this._myName
+      }
     });
+    if (conn) {
+      conn.on('open', () => {
+        this._setPeer(conn);
+      });
+    }
   
   }
 
