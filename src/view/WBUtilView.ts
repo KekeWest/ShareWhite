@@ -6,13 +6,12 @@ import WBUtilModel = require('../model/WBUtilModel');
 
 class WBUtilView extends Backbone.View<WBUtilModel> {
 
-  private template: (data: any) => string = null;
-  private _wbObjectCollection: WBObjectCollection = null;
-  private _peerCollection: PeerCollection = null;
+  private template: (data: any) => string;
+  private _wbObjectCollection: WBObjectCollection;
+  private _peerCollection: PeerCollection;
 
 
   constructor(options?: any) {
-    super(options);
     this.setElement($('#util-container'), true);
     this.template = JST['util'];
     this.events = <any>{
@@ -20,6 +19,7 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
       'click div[id^="wb-util-text-fontsize-"]': "_updateTextFontSize",
       'click #wb-util-clear': "_clearObject"
     };
+    super(options);
     this._wbObjectCollection = options.wbObjectCollection;
     this._peerCollection = options.peerCollection;
     this.listenTo(this._peerCollection, 'change', this.render);
