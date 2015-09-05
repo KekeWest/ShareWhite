@@ -11,10 +11,10 @@ class PeerModel extends Backbone.Model {
     super(attributes, options);
     this._wbObjectCollection = options.wbObjectCollection;
 console.log(this._wbObjectCollection);
-    this.listenTo(this._wbObjectCollection, 'add', this._addObject);
-    this.listenTo(this._wbObjectCollection, 'change', this._changeObject);
-    this.listenTo(this._wbObjectCollection, 'destroy', this._destroyObject);
-    this.listenTo(this._wbObjectCollection, 'reset', this._resetWhiteBoard);
+    this.listenTo(this._wbObjectCollection, 'sendAdd', this._addObject);
+    this.listenTo(this._wbObjectCollection, 'sendChange', this._changeObject);
+    this.listenTo(this._wbObjectCollection, 'sendDestroy', this._destroyObject);
+    this.listenTo(this._wbObjectCollection, 'sendReset', this._resetWhiteBoard);
     this.get('dataConnection').on('data', (data: any) => {
       this._apply(data);
     });
@@ -33,25 +33,60 @@ console.log(this._wbObjectCollection);
     this.trigger("destroy", this);
   }
 
-
   private _addObject(wbObj: WBObjectModel): void {
-console.log("add");
+    this.get('dataConnection').send({
+      type: 'add',
+      object: wbObj.toJSON()
+    });
   }
 
   private _changeObject(wbObj: WBObjectModel): void {
-console.log("change");
+console.log("asd");
+    this.get('dataConnection').send({
+      type: 'change',
+      object: wbObj.toJSON()
+    });
   }
 
   private _destroyObject(wbObj: WBObjectModel): void {
-console.log("destroy");
+    this.get('dataConnection').send({
+      type: 'destroy',
+      object: wbObj.toJSON()
+    });
   }
 
-  private _resetWhiteBoard(collection: WBObjectCollection, options: any) {
-console.log("reset");
+  private _resetWhiteBoard(collection: WBObjectCollection) {
+    this.get('dataConnection').send({
+      type: 'reset'
+    });
   }
 
   private _apply(data: any) {
 console.log(data);
+console.log(this._wbObjectCollection);
+    switch (data.type) {
+      case 'add':
+        var addObj: WBObjectModel = new WBObjectModel(data.object);
+        this._wbObjectCollection.add(addObj);
+        break;
+
+      case 'change':
+        var chObj: WBObjectModel = this._wbObjectCollection.get(data.object.id);
+        if (chObj) {
+          chObj.set(data.object);
+        }
+        break;
+
+      case 'destroy':
+        var desObj: WBObjectModel = this._wbObjectCollection.get(data.object.id);
+        if (desObj) {
+          desObj.destroy();
+        }
+        break;
+
+      case 'reset':
+        this._wbObjectCollection.reset();
+    }
   }
 
 }

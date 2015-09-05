@@ -41,6 +41,7 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     var offsetY: number = event.pageY - offset.top;
     var wbObj: WBObjectModel = new WBObjectModel(_.extend(this.model.toJSON(), {posLeft: offsetX, posTop: offsetY}));
     this.collection.add(wbObj);
+    wbObj.trigger("sendAdd", wbObj);
   }
 
 }

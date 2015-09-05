@@ -40,6 +40,7 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
 
   private _clearObject(): void {
     this.collection.reset();
+    this.collection.trigger("sendReset", this.collection);
   }
 
 }

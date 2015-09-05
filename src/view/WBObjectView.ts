@@ -55,13 +55,16 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
       case "keydown":
         width = this._getStrWidth() + this._fontSize + 1;
         this.model.set({text: text, width: width});
+        this.model.trigger("sendChange", this.model);
         break;
       case "keyup":
         width = this._getStrWidth() + 1;
         this.model.set({text: text, width: width});
+        this.model.trigger("sendChange", this.model);
         break;
       case "focusout":
         if (_.isEmpty(text)) {
+          this.model.trigger("sendDestroy", this.model);
           this._onDelete();
         }
         break;

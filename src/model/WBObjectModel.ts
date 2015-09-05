@@ -5,7 +5,9 @@ class WBObjectModel extends Backbone.Model {
 
   constructor(attributes?: any, options?: any) {
     super(attributes, options);
-    this.set('id', new Date().getTime() + Math.random());
+    if (!this.id) {
+      this.set('id', new Date().getTime() + Math.random());
+    }
   }
 
 
