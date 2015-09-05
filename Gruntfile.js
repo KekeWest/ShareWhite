@@ -36,7 +36,7 @@ module.exports = function(grunt) {
           amd: true
         },
         files: {
-          'dist/js/templates.js': [
+          'dist/js/jst.js': [
             'src/template/**/*.html'
           ]
         }

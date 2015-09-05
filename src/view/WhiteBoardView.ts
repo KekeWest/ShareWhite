@@ -1,4 +1,5 @@
 import Backbone = require('backbone');
+import JST = require('jst');
 import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectView = require('../view/WBObjectView');
 

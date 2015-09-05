@@ -195,3 +195,6 @@ declare var Peer: {
      */
     new (options: PeerJs.PeerJSOption): PeerJs.Peer;
 };
+declare module "peer" {
+  export = Peer;
+}

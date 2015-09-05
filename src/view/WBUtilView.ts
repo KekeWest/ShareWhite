@@ -1,4 +1,5 @@
 import Backbone = require('backbone');
+import JST = require('jst');
 import WBObjectCollection = require('../collection/WBObjectCollection');
 import WBUtilModel = require('../model/WBUtilModel');
 

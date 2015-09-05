@@ -3,6 +3,10 @@ import Backbone = require('backbone');
 
 class WBObjectModel extends Backbone.Model {
 
+  constructor(attributes?: any, options?: any) {
+    super(attributes, options);
+  }
+
   public defaults(): any {
     return {
       objectType: 'text',

@@ -16,6 +16,7 @@
     "grunt-tsd": "^0.1.0",
     "grunt-tslint": "^2.4.0",
     "grunt-typescript": "^0.7.0",
+    "peer": "^0.2.8",
     "tslint": "^2.4.5",
     "typescript": "^1.5.3"
   }
