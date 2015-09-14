@@ -16,6 +16,7 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
     this.setElement($('#util-container'), true);
     this.template = JST['util'];
     this.events = <any>{
+      'change input[type=text]#myname-input': "_updateMyName",
       'click div[id^="wb-util-text-color-"]': "_updateTextColor",
       'click div[id^="wb-util-text-fontsize-"]': "_updateTextFontSize",
       'click #wb-util-clear': "_clearObject"
@@ -34,13 +35,19 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
     var data: any = this.model.toJSON();
     _(data).extend({
       peerModels: this._peerCollection.models,
-      myPeerID: P2PManager.myPeerID
+      myPeerID: P2PManager.myPeerID,
+      myName: P2PManager.myName
     });
     var html: string = this.template(data);
     this.$el.html(html);
     $('#wb-util-text-' + data.objectColor).addClass("util-active");
     $('#wb-util-text-' + data.textFontSize).addClass("util-active");
     return this;
+  }
+
+
+  private _updateMyName(event: any): void {
+    P2PManager.myName = event.target.value;
   }
 
 

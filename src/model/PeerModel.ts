@@ -42,6 +42,15 @@ class PeerModel extends Backbone.Model {
     this.trigger("destroy", this);
   }
 
+
+  public sendMyName(name: string): void {
+    this.get('dataConnection').send({
+      type: 'peer-name-update',
+      name: name
+    });
+  }
+
+
   private _addObject(wbObj: WBObjectModel): void {
     this.get('dataConnection').send({
       type: 'add',
@@ -71,6 +80,10 @@ class PeerModel extends Backbone.Model {
 
   private _apply(data: any) {
     switch (data.type) {
+      case 'peer-name-update':
+        this.set('name', data.name);
+        break;
+
       case 'add':
         var addObj: WBObjectModel = new WBObjectModel(data.object);
         this._wbObjectCollection.add(addObj);

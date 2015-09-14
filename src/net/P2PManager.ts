@@ -22,6 +22,19 @@ class P2PManager {
   }
 
 
+  public static get myName(): string {
+    return this._myName;
+  }
+
+
+  public static set myName(val: string) {
+    this._myName = val;
+    _(this._peerCollection.models).each((pModel: PeerModel) => {
+      pModel.sendMyName(this._myName);
+    });
+  }
+
+
   public static init(peerCollection: PeerCollection, wbObjectCollection: WBObjectCollection): void {
     
     this._wbObjectCollection = wbObjectCollection;
@@ -52,7 +65,6 @@ class P2PManager {
     var peerModel: PeerModel = new PeerModel(
       {
         id: conn.peer,
-        name: conn.metadata.name,
         dataConnection: conn
       },
       {
@@ -69,11 +81,7 @@ class P2PManager {
     if (this._peerCollection.get(id) || this._myPeerID === id) {
       return;
     }
-    var conn: PeerJs.DataConnection = this._peer.connect(id, {
-      metadata: {
-        name: this._myName
-      }
-    });
+    var conn: PeerJs.DataConnection = this._peer.connect(id);
     if (conn) {
       conn.on('open', () => {
         this._setPeer(conn);

@@ -82,6 +82,17 @@
 
     #my-setting {
       float: left;
+
+      #myname-input {
+        height: 21px;
+        width: 171px;
+        margin: 5px 0px;
+        padding: 2px 6px;
+        border: solid 1px #ccc;
+        @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 2px inset);
+        @include border-radius(3px);
+        outline: none;
+      }
     }
   }
 
