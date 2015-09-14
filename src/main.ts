@@ -1,5 +1,3 @@
-/// <reference path='./typings/tsd.d.ts' />
-
 import P2PManager = require('net/P2PManager');
 import Environment = require('util/Environment');
 import WBObjectCollection = require('collection/WBObjectCollection');
