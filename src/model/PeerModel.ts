@@ -3,15 +3,15 @@ import Peer = require('peer');
 import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectCollection = require('../collection/WBObjectCollection');
 
-
 class PeerModel extends Backbone.Model {
 
   private _wbObjectCollection: WBObjectCollection;
+  private P2PManager: any;
 
   constructor(attributes?: any, options?: any) {
     
     super(attributes, options);
-    
+    this.P2PManager = options.P2PManager;
     this._wbObjectCollection = options.wbObjectCollection;
     this.listenTo(this._wbObjectCollection, 'sendAdd', this._addObject);
     this.listenTo(this._wbObjectCollection, 'sendChange', this._changeObject);
@@ -43,9 +43,9 @@ class PeerModel extends Backbone.Model {
   }
 
 
-  public sendMyName(name: string): void {
+  public interchangeMyName(name: string, type: string = "peer-name-start"): void {
     this.get('dataConnection').send({
-      type: 'peer-name-update',
+      type: type,
       name: name
     });
   }
@@ -80,7 +80,12 @@ class PeerModel extends Backbone.Model {
 
   private _apply(data: any) {
     switch (data.type) {
-      case 'peer-name-update':
+      case 'peer-name-start':
+        this.set('name', data.name);
+        this.interchangeMyName(this.P2PManager.myName, 'peer-name-end');
+        break;
+
+      case 'peer-name-end':
         this.set('name', data.name);
         break;
 
