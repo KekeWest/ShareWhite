@@ -68,8 +68,7 @@ class P2PManager {
         dataConnection: conn
       },
       {
-        wbObjectCollection: this._wbObjectCollection,
-        P2PManager: this
+        wbObjectCollection: this._wbObjectCollection
       }
     );
     
