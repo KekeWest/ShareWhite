@@ -50,7 +50,7 @@
 
           li {
             cursor: default;
-            background-color: $util-bg-active-color;
+            background-color: $util-bg-color;
             line-height: 28px;
             overflow: hidden;
             height: 0px;
@@ -58,15 +58,15 @@
             
             .user {
               display: block;
-              background-color: $util-bg-active-color;
+              background-color: $util-userlist-color;
+              min-width: 120px;
               padding: 0px 10px;
-              // color: white;
             }
           }
         }
 
         &:hover {
-          background-color: $util-bg-active-color;
+          background-color: $util-bg-color;
 
           ul {
             z-index: 1;
