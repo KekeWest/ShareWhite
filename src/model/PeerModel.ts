@@ -1,4 +1,5 @@
 import Backbone = require('backbone');
+import Peer = require('peer');
 import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectCollection = require('../collection/WBObjectCollection');
 
@@ -8,15 +9,23 @@ class PeerModel extends Backbone.Model {
   private _wbObjectCollection: WBObjectCollection;
 
   constructor(attributes?: any, options?: any) {
+    
     super(attributes, options);
+    
     this._wbObjectCollection = options.wbObjectCollection;
     this.listenTo(this._wbObjectCollection, 'sendAdd', this._addObject);
     this.listenTo(this._wbObjectCollection, 'sendChange', this._changeObject);
     this.listenTo(this._wbObjectCollection, 'sendDestroy', this._destroyObject);
     this.listenTo(this._wbObjectCollection, 'sendReset', this._resetWhiteBoard);
-    this.get('dataConnection').on('data', (data: any) => {
+    
+    var conn: PeerJs.DataConnection = this.get('dataConnection');
+    conn.on('data', (data: any) => {
       this._apply(data);
     });
+    conn.on('close', () => {
+      this.destroy();
+    });
+    
   }
 
 
