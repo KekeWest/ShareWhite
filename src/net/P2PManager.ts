@@ -14,7 +14,12 @@ class P2PManager {
   private static _peerServerPath: string = '/';
   private static _intervalTime: number = 10000;
   private static _myPeerID: string = null;
-  private static _myName: string = "";
+  private static _myName: string = "none";
+
+
+  public static get myPeerID(): string {
+    return this._myPeerID;
+  }
 
 
   public static init(peerCollection: PeerCollection, wbObjectCollection: WBObjectCollection): void {

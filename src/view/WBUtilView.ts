@@ -3,6 +3,7 @@ import JST = require('jst');
 import WBObjectCollection = require('../collection/WBObjectCollection');
 import PeerCollection = require('../collection/PeerCollection');
 import WBUtilModel = require('../model/WBUtilModel');
+import P2PManager = require('../net/P2PManager');
 
 class WBUtilView extends Backbone.View<WBUtilModel> {
 
@@ -22,14 +23,20 @@ class WBUtilView extends Backbone.View<WBUtilModel> {
     super(options);
     this._wbObjectCollection = options.wbObjectCollection;
     this._peerCollection = options.peerCollection;
+    this.listenTo(this._peerCollection, 'add', this.render);
     this.listenTo(this._peerCollection, 'change', this.render);
+    this.listenTo(this._peerCollection, 'destroy', this.render);
     this.listenTo(this.model, 'change', this.render);
   }
 
 
   public render(): WBUtilView {
-    var data = this.model.toJSON();
-    var html = this.template(data);
+    var data: any = this.model.toJSON();
+    _(data).extend({
+      peerModels: this._peerCollection.models,
+      myPeerID: P2PManager.myPeerID
+    });
+    var html: string = this.template(data);
     this.$el.html(html);
     $('#wb-util-text-' + data.objectColor).addClass("util-active");
     $('#wb-util-text-' + data.textFontSize).addClass("util-active");
