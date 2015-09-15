@@ -100,7 +100,6 @@ class PeerModel extends Backbone.Model {
         var chObj: WBObjectModel = this._wbObjectCollection.get(data.object.id);
         if (chObj) {
           chObj.set(data.object, {fromPeer: true});
-          chObj.trigger('receiveChange', {fromPeer: true});
         }
         break;
 
