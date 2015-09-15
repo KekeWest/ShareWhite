@@ -93,14 +93,14 @@ class PeerModel extends Backbone.Model {
 
       case 'add':
         var addObj: WBObjectModel = new WBObjectModel(data.object);
-        this._wbObjectCollection.add(addObj);
+        this._wbObjectCollection.add(addObj, {fromPeer: true});
         break;
 
       case 'change':
         var chObj: WBObjectModel = this._wbObjectCollection.get(data.object.id);
         if (chObj) {
-          chObj.set(data.object, {silent: true});
-          chObj.trigger('receiveChange', chObj);
+          chObj.set(data.object, {fromPeer: true});
+          chObj.trigger('receiveChange', {fromPeer: true});
         }
         break;
 

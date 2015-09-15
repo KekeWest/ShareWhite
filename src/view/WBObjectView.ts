@@ -30,7 +30,10 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     this.remove();
   }
 
-  public updateStyle(): void {
+  public updateStyle(wbObjM: WBObjectModel, options: any): void {
+    if (options.fromPeer) {
+      return;
+    }
     this._input.css({
       width: this.model.get('width') + "px"
     });
@@ -42,7 +45,9 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
     this.$el.html(html);
     this._input = this.$el.children('input');
     this._ruler = this.$el.children('span');
-    if (options.renderType === 'add') {
+    if (options.fromPeer) {
+      $('#white-board').append(this.el);
+    } else {
       $('#white-board').append(this.el);
       this._input.focus();
     }

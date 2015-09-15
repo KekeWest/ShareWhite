@@ -1,5 +1,6 @@
 import Backbone = require('backbone');
 import JST = require('jst');
+import WBObjectCollection = require('../collection/WBObjectCollection');
 import WBObjectModel = require('../model/WBObjectModel');
 import WBObjectView = require('../view/WBObjectView');
 
@@ -17,9 +18,9 @@ class WhiteBoardView extends Backbone.View<Backbone.Model> {
     this.listenTo(this.collection, 'add', this.addObject);
   }
 
-  public addObject(wbObj: WBObjectModel): void {
-    var view: WBObjectView = new WBObjectView({ model: wbObj });
-    view.render({renderType: 'add'});
+  public addObject(wbObjM: WBObjectModel, wbObjC: WBObjectCollection = null, options: any = {}): void {
+    var view: WBObjectView = new WBObjectView({ model: wbObjM });
+    view.render(options);
   }
 
   public render(): WhiteBoardView {
