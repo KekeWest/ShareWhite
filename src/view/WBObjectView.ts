@@ -1,4 +1,5 @@
 import Backbone = require('backbone');
+import JST = require('jst');
 import WBObjectModel = require('../model/WBObjectModel');
 
 
@@ -20,59 +21,73 @@ class WBObjectView extends Backbone.View<WBObjectModel> {
       "dblclick .wb-text": "_onDelete"
     };
     super(options);
-    this.listenTo(this.model, "change", this.updateStyle);
+    this.listenTo(this.model, "change", this.updateState);
     this.listenTo(this.model, "destroy", this.onDestroy);
   }
 
   public onDestroy(): void {
     this.remove();
   }
-
-  public updateStyle(): void {
-    this._input.css({
-      width: this.model.get('width') + "px"
-    });
-  }
-
-  public render(): WBObjectView {
+  
+  public render(options?: any): WBObjectView {
     var data = this.model.toJSON();
     var html = this._template(data);
     this.$el.html(html);
-    $('#white-board').append(this.el);
     this._input = this.$el.children('input');
     this._ruler = this.$el.children('span');
+    $('#white-board').append(this.el);
+    if (!options.fromPeer) {
+      this._input.focus();
+    }
     this._fontSize = parseInt(this._input.css('font-size'), 10);
-    this._input.focus();
     return this;
+  }
+
+  public updateState(model: WBObjectModel, options: any = {}): void {
+    if (options.fromPeer) {
+      this._input.val(this.model.get("text"));     
+    }
+
+    var width: number;
+    this._ruler.text(this._input.val());
+    if (options.eventType === "keydown") {
+      width = this._ruler.get(0).offsetWidth + this._fontSize + 1;
+    } else {
+      width = this._ruler.get(0).offsetWidth + 1;
+    }
+    this._input.css({width: width});
   }
 
   private _updateText(event: any): void {
     var text: string = this._input.val();
-    var width: number = 1;
-    this._ruler.text(text);
     switch (event.type) {
       case "keydown":
-        width = this._getStrWidth() + this._fontSize + 1;
-        this.model.set({text: text, width: width});
+        if (text === this.model.get("text")) {
+          this.updateState(this.model, {eventType: "keydown"});  
+        } else {
+          this.model.set({text: text}, {eventType: "keydown"});
+          this.model.trigger("sendChange", this.model);
+        }
         break;
+
       case "keyup":
-        width = this._getStrWidth() + 1;
-        this.model.set({text: text, width: width});
+        this.model.set({text: text}, {eventType: "keyup"});
+        this.model.trigger("sendChange", this.model);
         break;
+
       case "focusout":
         if (_.isEmpty(text)) {
           this._onDelete();
+        } else {
+          this.updateState(this.model);
         }
         break;
     }
   }
 
   private _onDelete(): void {
+    this.model.trigger('sendDestroy', this.model);
     this.model.destroy();
-  }
-
-  private _getStrWidth(): number {
-    return this._ruler.get(0).offsetWidth;
   }
 
 }

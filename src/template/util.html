@@ -1,4 +1,22 @@
 <div id="util">
+  <div id="peer-util">
+    <div id="peer-state">
+      <div id="user-list">
+        <ul>
+          <% _(peerModels).each(function(model) { %>
+            <% if (myPeerID !== model.id) { %>
+              <li>
+                <span class="user"><%= model.get('name') %></span>
+              </li>
+            <% } %>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+    <div id="my-setting">
+      <input type="text" id="myname-input" placeholder="Please your name" value="<%= myName %>"/>
+    </div>
+  </div>
   <div id="wb-util">
     <div id="wb-util-text-color">
       <div id="wb-util-text-color-black"></div>

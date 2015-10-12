@@ -13,6 +13,18 @@ module.exports = function(grunt) {
       }
     },
 
+    requirejs: {
+      dev: {
+        options: {
+          mainConfigFile: './dist/js/require.config.js',
+          baseUrl: './dist/js',
+          name: 'require.config',
+          out: './dist/js/app.js',
+          optimize: 'none'
+        }
+      }
+    },
+
     tslint: {
       ts: {
         options: {
@@ -36,7 +48,7 @@ module.exports = function(grunt) {
           amd: true
         },
         files: {
-          'dist/js/templates.js': [
+          'dist/js/jst.js': [
             'src/template/**/*.html'
           ]
         }
@@ -80,6 +92,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-typescript');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-tslint');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-compass');
@@ -91,7 +104,8 @@ module.exports = function(grunt) {
     [
       "tslint:ts",
       "jst:compile", 
-      "typescript:compile", 
+      "typescript:compile",
+      "requirejs:dev",
       "compass:compile"
     ]
   );

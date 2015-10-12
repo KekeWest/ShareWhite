@@ -11,5 +11,10 @@ class WBUtilModel extends Backbone.Model {
     };
   }
 
+
+  public destroy(): void {
+    this.trigger("destroy", this);
+  }
+
 }
 export = WBUtilModel;

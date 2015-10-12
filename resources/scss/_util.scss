@@ -18,14 +18,88 @@
 #util {
   background-color: $util-bg-color;
   width: 100%;
-  overflow: hidden;
+  height: 38px;
 
   .util-active {
     background-color: $util-bg-active-color;
   }
 
+  #peer-util {
+    float: left;
+
+    #peer-state {
+      float: left;
+      margin-right: 10px;
+      
+      #user-list {
+        position: relative;
+        float: left;
+        height: 38px;
+        width: 38px;
+        background-image: image-url("users.png");
+        background-repeat: no-repeat;
+        background-size: 25px 25px;
+        background-position: center center;
+
+        ul {
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          top: 100%;
+          left: 0;
+
+          li {
+            cursor: default;
+            background-color: $util-bg-color;
+            line-height: 28px;
+            overflow: hidden;
+            height: 0px;
+            @include transition(height 0.1s linear 0s);
+            
+            .user {
+              display: block;
+              background-color: $util-userlist-color;
+              min-width: 120px;
+              padding: 0px 10px;
+              white-space: nowrap;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $util-bg-color;
+
+          ul {
+            z-index: 1;
+            li {
+              overflow: visible;
+              height: 28px;
+            }
+          }
+        }
+
+      }
+    }
+
+    #my-setting {
+      float: left;
+
+      #myname-input {
+        height: 21px;
+        width: 171px;
+        margin: 5px 0px;
+        padding: 2px 6px;
+        border: solid 1px #ccc;
+        @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 2px inset);
+        @include border-radius(3px);
+        outline: none;
+      }
+    }
+  }
+
   #wb-util {
     float: right;
+    overflow: hidden;
     width: 500px;
 
     #wb-util-text-color {
